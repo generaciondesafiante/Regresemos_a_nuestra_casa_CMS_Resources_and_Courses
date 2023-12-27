@@ -17,6 +17,7 @@ const coursesData = async (req, res = response) => {
     });
   }
 };
+
 module.exports = {
   coursesData,
 };
