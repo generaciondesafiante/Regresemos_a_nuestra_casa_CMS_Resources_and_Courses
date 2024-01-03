@@ -1,45 +1,22 @@
 const { Schema, model } = require("mongoose");
 
-const CourseSchema = new Schema({
-  courseName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+const LessonSchema = new Schema({
+  videoId: { type: String, required: true, trim: true },
+  videoName: { type: String, required: true, trim: true },
+  description: { type: String, required: true, trim: true },
+  videoUrl: { type: String, required: true, trim: true },
+  length: { type: String, required: false },
+  rating: { type: Number },
+});
 
-  topics: [
-    {
-      topicName: { type: String, required: true, trim: true },
-      lessons: [
-        {
-          videoId: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-          videoName: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-          description: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-          videoUrl: {
-            type: String,
-            required: true,
-            trim: true,
-          },
-          length: { type: String, required: false },
-          rating: {
-            type: Number,
-          },
-        },
-      ],
-    },
-  ],
+const TopicSchema = new Schema({
+  topicName: { type: String, required: true, trim: true },
+  lessons: [LessonSchema],
+});
+
+const CourseSchema = new Schema({
+  courseName: { type: String, required: true, trim: true },
+  topics: [TopicSchema],
 });
 
 module.exports = model("Courses", CourseSchema);
