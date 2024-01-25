@@ -7,6 +7,7 @@ const LessonSchema = new Schema({
   videoUrl: { type: String, required: true, trim: true },
   length: { type: String, required: false },
   rating: { type: Number },
+  typeLesson: { type: String, required: false },
 });
 
 const TopicSchema = new Schema({
