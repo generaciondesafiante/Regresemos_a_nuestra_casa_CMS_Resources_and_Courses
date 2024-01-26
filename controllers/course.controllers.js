@@ -21,6 +21,7 @@ const coursesData = async (req, res = response) => {
             videoUrl: lesson.videoUrl,
             length: lesson.length,
             rating: lesson.rating,
+            typeLessson: lesson.typeLessson,
           })),
         })),
       })),
@@ -37,6 +38,7 @@ const coursesData = async (req, res = response) => {
 const createCourse = async (req, res = response) => {
   try {
     const { courseName, topics } = req.body;
+
     const newTopics = topics.map((topic) => {
       const newTopicId = new Types.ObjectId();
       return {
@@ -52,6 +54,7 @@ const createCourse = async (req, res = response) => {
             videoUrl: lesson.videoUrl,
             length: lesson.length,
             rating: lesson.rating,
+            typeLesson: lesson.typeLesson,
           };
         }),
       };
@@ -78,6 +81,7 @@ const createCourse = async (req, res = response) => {
             videoUrl: lesson.videoUrl,
             length: lesson.length,
             rating: lesson.rating,
+            typeLesson: lesson.typeLesson,
           })),
         })),
       },
