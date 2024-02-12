@@ -17,6 +17,7 @@ const TopicSchema = new Schema({
 
 const CourseSchema = new Schema({
   courseName: { type: String, required: true, trim: true },
+  mandatory: { type: Boolean, required: true, trim: true },
   topics: [TopicSchema],
 });
 
