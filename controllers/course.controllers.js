@@ -10,6 +10,7 @@ const coursesData = async (req, res = response) => {
       courses: courses.map((course) => ({
         _id: course._id,
         courseName: course.courseName,
+        mandatory: course.mandatory,
         topics: course.topics.map((topic) => ({
           topicName: topic.topicName,
           _id: topic._id,
