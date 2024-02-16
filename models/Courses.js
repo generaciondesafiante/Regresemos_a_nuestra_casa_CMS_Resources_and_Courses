@@ -8,10 +8,12 @@ const LessonSchema = new Schema({
   length: { type: String, required: false },
   rating: { type: Number },
   typeLesson: { type: String, required: false },
+  sequentialLesson: { type: String, required: false },
 });
 
 const TopicSchema = new Schema({
   topicName: { type: String, required: true, trim: true },
+  sequentialTopic: { type: String, required: false },
   lessons: [LessonSchema],
 });
 
