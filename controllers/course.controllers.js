@@ -14,6 +14,7 @@ const coursesData = async (req, res = response) => {
         topics: course.topics.map((topic) => ({
           topicName: topic.topicName,
           _id: topic._id,
+          sequentialTopic: topic.sequentialTopic,
           lessons: topic.lessons.map((lesson) => ({
             _id: lesson._id,
             videoId: lesson.videoId,
@@ -23,6 +24,7 @@ const coursesData = async (req, res = response) => {
             length: lesson.length,
             rating: lesson.rating,
             typeLessson: lesson.typeLessson,
+            sequentialLesson: lesson.sequentialLesson,
           })),
         })),
       })),
@@ -38,7 +40,7 @@ const coursesData = async (req, res = response) => {
 
 const createCourse = async (req, res = response) => {
   try {
-    const { courseName, topics } = req.body;
+    const { courseName, mandatory, topics } = req.body;
 
     const newTopics = topics.map((topic) => {
       const newTopicId = new Types.ObjectId();
@@ -56,13 +58,22 @@ const createCourse = async (req, res = response) => {
             length: lesson.length,
             rating: lesson.rating,
             typeLesson: lesson.typeLesson,
+            sequentialLesson: lesson.sequentialLesson,
           };
         }),
       };
     });
 
+    newTopics.forEach((topic, topicIndex) => {
+      topic.sequentialTopic = topicIndex + 1;
+      topic.lessons.forEach((lesson, lessonIndex) => {
+        lesson.sequentialLesson = lessonIndex + 1;
+      });
+    });
+
     const newCourse = await Course.create({
       courseName,
+      mandatory,
       topics: newTopics,
     });
 
@@ -74,6 +85,7 @@ const createCourse = async (req, res = response) => {
         topics: newCourse.topics.map((topic) => ({
           _id: topic._id,
           topicName: topic.topicName,
+          sequentialTopic: topic.sequentialTopic,
           lessons: topic.lessons.map((lesson) => ({
             _id: lesson._id,
             videoId: lesson.videoId,
@@ -83,6 +95,7 @@ const createCourse = async (req, res = response) => {
             length: lesson.length,
             rating: lesson.rating,
             typeLesson: lesson.typeLesson,
+            sequentialLesson: lesson.sequentialLesson,
           })),
         })),
       },
@@ -95,7 +108,6 @@ const createCourse = async (req, res = response) => {
     });
   }
 };
-
 module.exports = {
   coursesData,
   createCourse,
